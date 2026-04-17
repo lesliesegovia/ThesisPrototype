@@ -6,17 +6,17 @@ struct AppTheme {
     
     struct Colors {
         // Accents
-        static let accentPrimary = Color("#7C3AED")
-        static let accentSecondary = Color("#009688")
+        static let accentPrimary = Color("accentPrimary")
+        static let accentSecondary = Color("accentSecondary")
         
         // Backgrounds
-        static let backgroundPrimary = Color("#2C2C2C")
-        static let backgroundScreen = Color("#151414")
+        static let backgroundPrimary = Color("backgroundPrimary")
+        static let backgroundScreen = Color("backgroundScreen")
         
         // Text
-        static let textPrimary = Color("#EFEFEF")
-        static let textSecondary = Color("#DAD7D7")
-        static let textOnAccent = Color("#F8F8F8")
+        static let textPrimary = Color("textPrimary")
+        static let textSecondary = Color("textSecondary")
+        static let textOnAccent = Color("textOnAccent")
     }
     
     struct Typography {

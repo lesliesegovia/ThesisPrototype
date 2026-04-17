@@ -16,7 +16,15 @@ struct CategoryPill: View {
             .padding(.vertical, 8)
             .background(
                 Capsule()
-                    .fill(isSelected ? AppTheme.Colors.accentPrimary : AppTheme.Colors.backgroundPrimary)
+                    .fill(isSelected ? AppTheme.Colors.accentPrimary : AppTheme.Colors.accentSecondary)
             )
+    }
+}
+
+#Preview {
+    HStack {
+        CategoryPill(title: "All", isSelected: true)
+        CategoryPill(title: "Technology", isSelected: false)
+        CategoryPill(title: "Sports", isSelected: false)
     }
 }
