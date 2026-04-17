@@ -1,2 +1,22 @@
 
 import Foundation
+import SwiftUI
+
+struct CategoryPill: View {
+    let title: String
+    let isSelected: Bool
+    
+    var body: some View {
+        Text(title)
+            .font(AppTheme.Typography.categoryLabel)
+            .foregroundStyle(
+                isSelected ? AppTheme.Colors.textOnAccent : AppTheme.Colors.textSecondary
+            )
+            .padding(.horizontal, 16)
+            .padding(.vertical, 8)
+            .background(
+                Capsule()
+                    .fill(isSelected ? AppTheme.Colors.accentPrimary : AppTheme.Colors.backgroundPrimary)
+            )
+    }
+}
