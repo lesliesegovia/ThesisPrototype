@@ -14,7 +14,7 @@ struct NewsFeedView: View {
                 
                 // Header
                 NewsHeader()
-                    .padding(.horizontal, 16)
+                    .padding(.horizontal, 5)
                 
                 // Category pills
                 ScrollView(.horizontal, showsIndicators: false) {
@@ -29,13 +29,13 @@ struct NewsFeedView: View {
                             }
                         }
                     }
-                    .padding(.horizontal, 16)
+                    .padding(.horizontal, 5)
                 }
                 
                 // Cards
                 // Featured card
                 NewsCardFeatured(category: "Breaking News", headline: "Major developments unfold as global leaders meet for summit", description: "Representatives from over 50 countries gathered to address climate and economic policy.")
-                    .padding(.horizontal, 16)
+                    .padding(.horizontal, 5)
                 
                 // compact cards
                 VStack(spacing: 12) {
@@ -55,7 +55,7 @@ struct NewsFeedView: View {
                         description: "The breakthrough could significantly reduce costs for solar infrastructure."
                     )
                 }
-                .padding(.horizontal, 16)
+                .padding(.horizontal, 5)
             }
             .background(AppTheme.Colors.backgroundScreen)
         }

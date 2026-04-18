@@ -25,8 +25,11 @@ struct NewsCardCompact: View {
                     .font(AppTheme.Typography.cardHeadline)
                     .foregroundStyle(AppTheme.Colors.textSecondary)
                     .lineLimit(2)
-                
-                Spacer()
+                // description
+                Text(description)
+                    .font(AppTheme.Typography.cardBody)
+                    .foregroundStyle(AppTheme.Colors.textSecondary)
+                    .lineLimit(3)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         }
