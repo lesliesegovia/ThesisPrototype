@@ -24,7 +24,7 @@ struct ArticleDetailView: View {
                     
                     // headline
                     Text(headline)
-                        .font(AppTheme.Typography.cardHeadline)
+                        .font(AppTheme.Typography.articleHeadline)
                         .foregroundStyle(AppTheme.Colors.textPrimary)
                     
                     // divider
@@ -35,7 +35,7 @@ struct ArticleDetailView: View {
                     
                     // article body
                     Text(articleText)
-                        .font(AppTheme.Typography.cardBody)
+                        .font(AppTheme.Typography.articleBody)
                         .foregroundStyle(AppTheme.Colors.textSecondary)
                         .lineSpacing(6)
                 }
