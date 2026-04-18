@@ -4,6 +4,8 @@ import SwiftUI
 
 struct AppTheme {
     
+    static let logo = Image("logo")
+    
     struct Colors {
         // Accents
         static let accentPrimary = Color("accentPrimary")

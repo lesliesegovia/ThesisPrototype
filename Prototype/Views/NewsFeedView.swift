@@ -14,7 +14,6 @@ struct NewsFeedView: View {
                 
                 // Header
                 NewsHeader()
-                    .padding(.horizontal, 5)
                 
                 // Category pills
                 ScrollView(.horizontal, showsIndicators: false) {
