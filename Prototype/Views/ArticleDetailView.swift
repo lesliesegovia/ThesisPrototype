@@ -12,10 +12,9 @@ struct ArticleDetailView: View {
             VStack(alignment: .leading, spacing: 16) {
                 
                 // Article image
-                Rectangle()
-                    .fill(AppTheme.Colors.accentSecondary.opacity(0.3))
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 220)
+                Image(.featured)
+                    .resizable()
+                    .scaledToFit()
                 
                 VStack(alignment: .leading, spacing: 12) {
                     

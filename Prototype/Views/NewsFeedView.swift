@@ -6,7 +6,7 @@ struct NewsFeedView: View {
     
     @State private var selectedCategory = "Today"
     
-    let categories = ["Today", "Technology", "Sports", "Politics"]
+    let categories = ["Today", "Technology", "Sports", "Politics", "Entertainment"]
     
     var body: some View {
         NavigationStack {
@@ -43,8 +43,6 @@ struct NewsFeedView: View {
                             .padding(.horizontal, 5)
                     }
                     .buttonStyle(.plain)
-                    
-
                     
                     // compact cards
                     VStack(spacing: 12) {
@@ -88,8 +86,8 @@ struct NewsFeedView: View {
                     }
                     .padding(.horizontal, 5)
                 }
-                .background(AppTheme.Colors.backgroundScreen)
             }
+            .background(AppTheme.Colors.backgroundScreen)
         }
     }
 }

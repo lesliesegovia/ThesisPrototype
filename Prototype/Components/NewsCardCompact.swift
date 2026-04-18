@@ -10,10 +10,11 @@ struct NewsCardCompact: View {
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
             // card image
-            Rectangle()
-                .fill(AppTheme.Colors.accentSecondary.opacity(0.3))
-                .frame(width: 100, height: 100)
-                .clipShape(RoundedRectangle(cornerRadius: 8))
+            Image(.compact)
+                .resizable()
+                .scaledToFit()
+                .cornerRadius(8)
+
             // card content
             VStack(alignment: .leading, spacing: 8) {
                 // category label

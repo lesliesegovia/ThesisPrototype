@@ -9,18 +9,10 @@ struct NewsCardFeatured: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
+            Image(.featured)
+                .resizable()
+                .scaledToFit()
             
-            // Card image
-            Rectangle()
-                .fill(AppTheme.Colors.accentSecondary.opacity(0.3))
-                .frame(maxWidth: .infinity)
-                .frame(height: 180)
-                .clipShape(
-                    UnevenRoundedRectangle(
-                        topLeadingRadius: 12,
-                        topTrailingRadius: 12
-                    )
-                )
             // Card content
             VStack(alignment: .leading, spacing: 8) {
                 // category label
