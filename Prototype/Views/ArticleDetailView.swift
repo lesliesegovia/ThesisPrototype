@@ -6,15 +6,18 @@ struct ArticleDetailView: View {
     let category: String
     let headline: String
     let articleText: String
+    let imageName: ImageResource
+    
     
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
                 
                 // Article image
-                Image(.featured)
+                Image(imageName)
                     .resizable()
                     .scaledToFit()
+
                 
                 VStack(alignment: .leading, spacing: 12) {
                     
@@ -42,9 +45,6 @@ struct ArticleDetailView: View {
             }
         }
         .background(AppTheme.Colors.backgroundScreen)
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbarBackground(AppTheme.Colors.backgroundScreen, for: .navigationBar)
-        .toolbarColorScheme(.dark, for: .navigationBar)
     }
 }
 
@@ -53,7 +53,8 @@ struct ArticleDetailView: View {
         ArticleDetailView(
             category: "Technology",
             headline: "SwiftUI gets major performance improvements in latest release",
-            articleText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+            articleText: "Developers report faster build times and smoother animations across all supported platforms.",
+            imageName: .featured
         )
     }
 }

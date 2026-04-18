@@ -7,6 +7,7 @@ struct NewsFeedView: View {
     @State private var selectedCategory = "Today"
     
     let categories = ["Today", "Technology", "Sports", "Politics", "Entertainment"]
+    let articles = NewsData.articles
     
     var body: some View {
         NavigationStack {
@@ -33,56 +34,32 @@ struct NewsFeedView: View {
                     }
                     
                     // CARDS
-                    // Featured card
-                    NavigationLink(destination: ArticleDetailView (
-                        category: "Breaking News",
-                        headline: "Major developments unfold as global leaders meet for summit",
-                        articleText: "Representatives from over 50 countries gathered to address climate and economic policy."
-                    )) {
-                        NewsCardFeatured(category: "Breaking News", headline: "Major developments unfold as global leaders meet for summit", description: "Representatives from over 50 countries gathered to address climate and economic policy.")
-                            .padding(.horizontal, 5)
-                    }
-                    .buttonStyle(.plain)
-                    
-                    // compact cards
                     VStack(spacing: 12) {
-                        NavigationLink(destination: ArticleDetailView(
-                            category: "Technology",
-                            headline: "SwiftUI gets major performance improvements in latest release",
-                            articleText: "Developers report faster build times and smoother animations."
-                        )) {
-                            NewsCardCompact(
-                                category: "Technology",
-                                headline: "SwiftUI gets major performance improvements in latest release",
-                                description: "Developers report faster build times and smoother animations."
-                            )
+                        ForEach(articles, id: \.headline) { article in
+                            NavigationLink(destination: ArticleDetailView(
+                                category: article.category,
+                                headline: article.headline,
+                                articleText: article.description,
+                                imageName: article.imageName
+                            )) {
+                                switch article.cardType {
+                                case .featured:
+                                    NewsCardFeatured(
+                                        category: article.category,
+                                        headline: article.headline,
+                                        description: article.description
+                                    )
+                                    .padding(.horizontal, 5)
+                                case .compact:
+                                    NewsCardCompact(
+                                        category: article.category,
+                                        headline: article.headline,
+                                        description: article.description
+                                    )
+                                }
+                            }
+                            .buttonStyle(.plain)
                         }
-                        .buttonStyle(.plain)
-                        
-                        NavigationLink(destination: ArticleDetailView(
-                            category: "Sports",
-                            headline: "Championship results shake up the standings",
-                            articleText: "An unexpected victory changes everything heading into the finals."
-                        )) {
-                            NewsCardCompact(
-                                category: "Sports",
-                                headline: "Championship results shake up the standings",
-                                description: "An unexpected victory changes everything heading into the finals."
-                            )
-                        }
-                        .buttonStyle(.plain)
-                        
-                        NavigationLink(destination: ArticleDetailView(
-                            category: "Science",
-                            headline: "Researchers discover new approach to renewable energy storage",
-                            articleText: "The breakthrough could significantly reduce costs for solar infrastructure."                        )) {
-                            NewsCardCompact(
-                                category: "Science",
-                                headline: "Researchers discover new approach to renewable energy storage",
-                                description: "The breakthrough could significantly reduce costs for solar infrastructure."
-                            )
-                        }
-                        .buttonStyle(.plain)
                     }
                     .padding(.horizontal, 5)
                 }
