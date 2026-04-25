@@ -4,10 +4,16 @@ import SwiftUI
 
 struct NewsHeader: View {
     var body: some View {
-        Image(.logo)
-            .resizable()
-            .scaledToFit()
-            .frame(width: 120, height: 30)
+        HStack(spacing: 8) {
+            Image(.logo)
+                .resizable()
+                .scaledToFit()
+                .frame(height: 36)
+            
+            Text("NEWS")
+                .font(AppTheme.Typography.screenTitle)
+                .foregroundStyle(AppTheme.Colors.accentPrimary)
+        }
     }
 }
 
