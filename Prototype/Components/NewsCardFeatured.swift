@@ -6,10 +6,11 @@ struct NewsCardFeatured: View {
     let category: String
     let headline: String
     let description: String
+    let image: ImageResource
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Image(.featured)
+            Image(image)
                 .resizable()
                 .scaledToFit()
             
@@ -41,7 +42,8 @@ struct NewsCardFeatured: View {
     NewsCardFeatured(
         category: "Technology",
         headline: "Apple announces major updates to SwiftUI at WWDC",
-        description: "New features include improved animations and enhanced layout tools for developers."
+        description: "New features include improved animations and enhanced layout tools for developers.",
+        image: .featured
     )
     .padding()
     .frame(maxWidth: .infinity, maxHeight: .infinity)

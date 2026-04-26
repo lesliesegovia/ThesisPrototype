@@ -6,11 +6,12 @@ struct NewsCardCompact: View {
     let category: String
     let headline: String
     let description: String
+    let image: ImageResource
     
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
             // card image
-            Image(.compact)
+            Image(image)
                 .resizable()
                 .scaledToFit()
                 .cornerRadius(8)
@@ -46,12 +47,14 @@ struct NewsCardCompact: View {
         NewsCardCompact(
             category: "Technology",
             headline: "SwiftUI gets major performance improvements",
-            description: "Developers report faster build times and smoother animations."
+            description: "Developers report faster build times and smoother animations.",
+            image: .compact
         )
         NewsCardCompact(
             category: "Sports",
             headline: "Championship results from last night",
-            description: "An unexpected victory shakes up the standings."
+            description: "An unexpected victory shakes up the standings.",
+            image: .compact
         )
     }
     .padding()

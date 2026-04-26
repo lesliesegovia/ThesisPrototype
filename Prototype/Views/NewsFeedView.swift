@@ -34,14 +34,16 @@ struct NewsFeedView: View {
                                     NewsCardFeatured(
                                         category: article.category,
                                         headline: article.headline,
-                                        description: article.description
+                                        description: article.description,
+                                        image: .featured
                                     )
                                     .padding(.horizontal, 5)
                                 case .compact:
                                     NewsCardCompact(
                                         category: article.category,
                                         headline: article.headline,
-                                        description: article.description
+                                        description: article.description,
+                                        image: .compact
                                     )
                                 }
                             }
