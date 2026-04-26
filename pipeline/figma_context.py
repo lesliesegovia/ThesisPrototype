@@ -10,57 +10,74 @@ FIGMA_FILE_ID = os.getenv("FIGMA_FILE_ID")
 HEADERS = {"X-Figma-Token": FIGMA_TOKEN}
 BASE_URL = "https://api.figma.com/v1"
 
-def get_figma_components():
-    """Get all components from the Figma file"""
-    url = f"{BASE_URL}/files/{FIGMA_FILE_ID}/components"
-    response = requests.get(url, headers=HEADERS)
-    data = response.json()
-    
-    components = []
-    for key, comp in data.get("meta", {}).get("components", {}).items():
-        components.append({
-            "name": comp.get("name"),
-            "description": comp.get("description", ""),
-            "key": key
-        })
-    return components
-
-def get_figma_file_structure():
-    """Get the page and frame structure of the Figma file"""
+def get_figma_file_data():
+    """Get all file data using the general File API"""
     url = f"{BASE_URL}/files/{FIGMA_FILE_ID}?depth=2"
     response = requests.get(url, headers=HEADERS)
-    data = response.json()
-    
-    structure = []
-    for page in data.get("document", {}).get("children", []):
-        page_info = {
-            "page": page.get("name"),
-            "frames": [child.get("name") for child in page.get("children", [])]
-        }
-        structure.append(page_info)
-    return structure
+    return response.json()
 
-def get_figma_context_for_query():
-    """Combine components and structure into context string for the agent"""
-    components = get_figma_components()
-    structure = get_figma_file_structure()
+def parse_file_context(data):
+    """Parse file data into structured context for the agent"""
+    context = "=== FIGMA DESIGN CONTEXT ===\n\n"
     
-    context = "FIGMA DESIGN CONTEXT\n\n"
+    document = data.get("document", {})
     
-    context += "COMPONENTS:\n"
-    for comp in components:
-        context += f"- {comp['name']}"
-        if comp['description']:
-            context += f": {comp['description']}"
+    # Get design styles from file
+    styles = data.get("styles", {})
+    if styles:
+        context += "DESIGN STYLES:\n"
+        for style_id, style in styles.items():
+            context += f"- [{style.get('styleType')}] {style.get('name')}\n"
         context += "\n"
     
-    context += "\nFILE STRUCTURE (Pages and Screens):\n"
-    for page in structure:
-        context += f"\nPage: {page['page']}\n"
-        for frame in page['frames']:
-            context += f"  - {frame}\n"
-    
+    # Parse pages
+    for page in document.get("children", []):
+        page_name = page.get("name")
+        
+        if page_name == "Components":
+            context += "COMPONENTS:\n"
+            for component in page.get("children", []):
+                comp_name = component.get("name")
+                context += f"\n{comp_name}:\n"
+                
+                # Layout properties
+                if "paddingLeft" in component:
+                    context += f"  Padding: top={component.get('paddingTop')}, bottom={component.get('paddingBottom')}, left={component.get('paddingLeft')}, right={component.get('paddingRight')}\n"
+                if "itemSpacing" in component:
+                    context += f"  Gap: {component.get('itemSpacing')}\n"
+                if "cornerRadius" in component:
+                    context += f"  Corner Radius: {component.get('cornerRadius')}\n"
+                
+                # Children layers
+                for child in component.get("children", []):
+                    child_name = child.get("name")
+                    child_type = child.get("type")
+                    context += f"  - {child_name} ({child_type})"
+                    
+                    # Text properties
+                    if child_type == "TEXT":
+                        style = child.get("style", {})
+                        if style.get("fontSize"):
+                            context += f": {style.get('fontSize')}pt, weight={style.get('fontWeight')}, font={style.get('fontFamily')}"
+                    
+                    context += "\n"
+        
+        elif page_name == "Screens":
+            context += "\nSCREENS:\n"
+            for screen in page.get("children", []):
+                context += f"  - {screen.get('name')}\n"
+        
+        elif page_name == "Design Systems":
+            context += "\nDESIGN SYSTEMS:\n"
+            for item in page.get("children", []):
+                context += f"  - {item.get('name')}\n"
+
     return context
+
+def get_figma_context_for_query():
+    """Combine all Figma context into a single string for the agent"""
+    data = get_figma_file_data()
+    return parse_file_context(data)
 
 if __name__ == "__main__":
     print(get_figma_context_for_query())

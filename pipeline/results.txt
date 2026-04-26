@@ -3,22 +3,16 @@
 Q1 | Design Completeness | Engineer | Component
 QUERY: Are there any screens defined in the Figma design that do not have a corresponding implementation in the codebase?
 RESPONSE:
-Yes, there are screens defined in Figma that do not have corresponding implementations in the codebase.
+Yes, there is **one screen** defined in the Figma design that does not have a corresponding implementation in the codebase:
 
-**Figma screens without implementation:**
+## Missing Screen:
+- **TechFeedView**
 
-1. **NewsFeedView** - Not implemented
-2. **ArticleDetailView** - Not implemented
-3. **TechFeedView** - Not implemented
+## Implemented Screens:
+- ✅ **NewsFeedView** - Implemented in `NewsFeedView.swift`
+- ✅ **ArticleDetailView** - Implemented in `ArticleDetailView.swift`
 
-**What exists in the codebase:**
-
-The codebase only contains:
-- `PrototypeApp.swift` - The app entry point with a generic `ContentView()`
-- `NewsCardCompact.swift` - A component implementation
-- `CategoryPill.swift` - A component implementation
-
-While two of the Figma components (`CategoryPill` and `NewsCard`/`NewsCardCompact`) have been implemented, none of the three main screens from the Figma design have corresponding Swift view files in the codebase yet.
+The **TechFeedView** is listed in the Figma design context under the SCREENS section, but there is no corresponding Swift file or implementation found in the codebase context provided.
             
 ============================================================
 Q2 | Design Completeness | Designer | Detail
@@ -26,166 +20,155 @@ QUERY: As a designer, are there existing components in the codebase I can refere
 RESPONSE:
 # Existing Components You Can Reference
 
-Yes! There are several existing components and patterns in the codebase that you should reference before finalizing the **NewsCardPlus** design specs:
+Yes! There are existing components in the codebase that you should review before finalizing the NewsCardPlus design specs:
 
 ## 1. **NewsCardFeatured** (Primary Reference)
-This is your main reference component located in `NewsCardFeatured.swift`. It establishes key patterns:
+This is the most relevant component to reference. It includes:
 
-### Layout Structure:
-- Image at top (full-width, scaledToFit)
-- Content VStack below with consistent padding (16pt)
-- 12pt corner radius on the card container
+### Structure:
+- Image at the top (resizable, scaled to fit)
+- VStack layout with card content below image
+- Three text elements: category label, headline, description
 
-### Content Hierarchy:
-- **Category label** (top)
-- **Headline** (2-line limit)
-- **Description** (2-line limit)
-
-### Spacing:
-- Uses `AppTheme.Spacing.card` between text elements
-- 16pt padding around content area
-
-## 2. **Design System Already in Use**
+### Styling Details:
+- **Corner Radius:** 12pt (RoundedRectangle)
+- **Card Spacing:** `AppTheme.Spacing.card` (internal spacing between text elements)
+- **Padding:** 16pt around content area
+- **Background:** `AppTheme.Colors.backgroundPrimary`
 
 ### Typography:
-- `AppTheme.Typography.categoryLabel` - for category tags
-- `AppTheme.Typography.cardHeadline` - for headlines
-- `AppTheme.Typography.cardBody` - for descriptions
+- **Category:** `AppTheme.Typography.categoryLabel` in `accentPrimary` color
+- **Headline:** `AppTheme.Typography.cardHeadline` in `textPrimary` color (2 line limit)
+- **Description:** `AppTheme.Typography.cardBody` in `textPrimary` color (2 line limit)
 
-### Colors:
-- `AppTheme.Colors.accentPrimary` - for category labels
-- `AppTheme.Colors.textPrimary` - for headlines and body text
-- `AppTheme.Colors.backgroundPrimary` - for card backgrounds
-- `AppTheme.Colors.backgroundScreen` - for screen backgrounds
+## 2. **NewsCard Component** (From Figma)
+- **Corner Radius:** 5.0pt (note: this differs from NewsCardFeatured's 12pt)
 
-### Spacing:
-- `AppTheme.Spacing.card` - standardized card content spacing
+## Key Questions to Resolve:
 
-## 3. **Existing Card Types**
-The codebase already supports:
-- `.featured` card type (with image resource)
-- `.compact` card type (with image resource)
+1. **Corner Radius Consistency:** NewsCardFeatured uses 12pt, but Figma specs show NewsCard at 5pt. Which should NewsCardPlus follow?
 
-## 📋 Recommendations for NewsCardPlus Specs:
+2. **Typography:** Figma mentions `cardPlusHeadline` and `categoryLabelPlus` - how do these differ from the existing `cardHeadline` and `categoryLabel`?
 
-1. **Maintain consistency** with the 16pt padding and 12pt corner radius
-2. **Use the established typography tokens** rather than creating new ones
-3. **Follow the same color system** (accentPrimary for categories, textPrimary for content)
-4. **Consider how it fits** between `.featured` and `.compact` variants
-5. **Specify which `ImageResource`** it should use or if it needs a new one
+3. **Layout Pattern:** Should NewsCardPlus follow the same image-top/content-bottom pattern as NewsCardFeatured?
 
-Would you like me to help you create a spec document that maps NewsCardPlus against these existing patterns?
+**Recommendation:** Use NewsCardFeatured as your baseline and document only the **differences** for NewsCardPlus to maintain design system consistency.
             
 ============================================================
 Q3 | Design Completeness | Engineer | Component+Detail
 QUERY: The Figma design includes both a TechFeedView screen and a NewsCardPlus component. Do either of these exist in the current codebase?
 RESPONSE:
-Based on the codebase context provided:
+Based on the codebase context provided, **neither** the `TechFeedView` screen nor the `NewsCardPlus` component currently exist in the codebase.
 
-**No, neither of these exist in the current codebase.**
+Here's what I can see:
 
-- **TechFeedView**: This screen is listed in the Figma design under "Page: Screens" but does not appear in any of the Swift files provided. The codebase only shows `ContentView.swift` which contains a `NewsFeedView()`, but no `TechFeedView`.
+**What exists in the codebase:**
+- `NewsFeedView` (referenced in ContentView.swift)
+- `NewsCardFeatured` component (complete implementation shown)
+- `ArticleDetailView` is not shown in the code
 
-- **NewsCardPlus**: This component is not present in the codebase. The only news card component shown is `NewsCardFeatured.swift`. There is no `NewsCardPlus` component implementation.
+**What's missing from Figma:**
+- `TechFeedView` - mentioned in the Figma SCREENS list, but not implemented
+- `NewsCardPlus` - implied by the Figma design styles `cardPlusHeadline` and `categoryLabelPlus`, but no component exists in the code
 
-The codebase appears to be partially implemented compared to the Figma design, with some screens and components still missing.
+The codebase currently only shows `NewsCardFeatured`, while the Figma design suggests there should be additional card variants (like NewsCardPlus) and additional screen views (like TechFeedView) that need to be implemented.
             
 ============================================================
 Q4 | Design Completeness | Both | Edge Case
 QUERY: Are there any design elements in the Figma file that engineering would need to implement but are not explicitly detailed enough to build from?
 RESPONSE:
-# Design Gaps Analysis
+# Design Elements Requiring Additional Specification
 
-Based on the provided Figma and codebase contexts, here are design elements that engineering would need more detail on to implement properly:
+Yes, there are several design elements in the Figma file that lack sufficient detail for implementation:
 
-## 1. **Typography System - Missing Specifications**
-- **Font families**: No specification of which fonts to use (SF Pro, system default, custom?)
-- **Font weights**: Not specified (regular, medium, semibold, bold?)
-- **Font sizes**: No pixel/point values defined
-- **Line heights**: Missing leading/line-height values
-- **Letter spacing**: No tracking information
+## 1. **Typography Specifications**
+The Figma file lists text styles by name only:
+- `text/screenTitle`
+- `text/cardHeadline`
+- `text/cardBody`
+- `text/articleHeadline`
+- `text/articleBody`
+- `categoryLabel`
+- `cardPlusHeadline`
+- `categoryLabelPlus`
 
-## 2. **Color System - No Defined Values**
-The Colors page exists but no actual color values are provided:
-- What are the hex/RGB values for `accentPrimary`, `accentSecondary`?
-- What are `textPrimary`, `backgroundPrimary`, `backgroundScreen`?
-- Are there dark mode variants?
-- What's the full color palette beyond what's referenced in code?
+**Missing details:**
+- Font family (SF Pro, custom font, etc.)
+- Font weight (regular, medium, semibold, bold)
+- Font size in points
+- Line height/spacing
+- Letter spacing
+- Any text transformations (uppercase, etc.)
 
-## 3. **Spacing System - Incomplete**
-- `AppTheme.Spacing.card` is referenced but the value isn't defined
-- No spacing scale system provided (4pt, 8pt, 16pt grid?)
-- Inconsistent padding values (some hardcoded as 16, 8)
+## 2. **Color Values**
+Color names are provided but not their actual values:
+- `color/accentPrimary`
+- `color/accentSecondary`
+- `color/backgroundPrimary`
+- `color/backgroundScreen`
+- `color/textPrimary`
+- `color/textSecondary`
 
-## 4. **Component States - Missing**
-- **CategoryPill**: Only shows selected/unselected. What about hover, pressed, disabled?
-- **NewsCard**: No interaction states (tap, long-press feedback)
-- **Interactive behaviors**: Animations, transitions not specified
+**Missing details:**
+- Hex/RGB values
+- Dark mode variants (if applicable)
+- Opacity values
 
-## 5. **NewsCard Variants - Unclear Differences**
-- `NewsCardFeatured` is implemented, but what about `.compact` type mentioned in NewsData?
-- What are the visual differences between card types?
-- Layout specifications for compact cards?
+## 3. **Spacing System**
+The Figma shows gaps (8.0) for some components, but:
+- No comprehensive spacing scale defined
+- Inconsistent padding values in code (16, 8) vs design system
+- Missing margin/padding specifications for all components
 
-## 6. **Layout & Responsive Behavior**
-- **Screen dimensions**: Target device sizes?
-- **Scroll behavior**: How do feeds scroll?
-- **Grid/spacing**: How are cards arranged in TechFeedView vs NewsFeedView?
-- **Safe area handling**: Top/bottom insets?
+## 4. **Component States**
+- **CategoryPill**: Only shows selected vs unselected, but missing hover, pressed, disabled states
+- **NewsCard**: No indication of tap/press states or animations
 
-## 7. **Images & Assets**
-- **Image aspect ratios**: What ratio for featured images?
-- **Placeholder states**: What shows when images are loading?
-- **Image resources**: Only `.featured` is shown - what about others?
+## 5. **Image Specifications**
+- Aspect ratios for featured images
+- Placeholder image behavior
+- Image loading states
 
-## 8. **Missing Component Implementations**
-Referenced in Figma but not in codebase:
-- `NewsHeader` - completely missing
-- `CategoryFilterBar` - no implementation provided
-- Compact `NewsCard` variant
+## 6. **Screen-Level Details**
+Three screens are mentioned (`NewsFeedView`, `ArticleDetailView`, `TechFeedView`) but no layout specifications like:
+- Screen padding/margins
+- Scroll behavior
+- Component arrangement and hierarchy
 
-## Recommendations for Design Team:
-
-To make this implementation-ready, provide:
-1. **Design tokens document** with all typography, color, and spacing values
-2. **Component specifications** showing all states and variants
-3. **Redlines/specs** with measurements for spacing and sizing
-4. **Interaction specifications** for animations and transitions
-5. **Responsive breakpoints** and layout grids
-6. **Asset export specifications** (image sizes, formats, naming)
-
-Would you like me to create a detailed specification template for any of these areas?
+**Recommendation:** Engineering should request a design handoff session or annotated specs with exact values for all typography, colors, and spacing tokens.
             
 ============================================================
 Q5 | Feasibility Assessment | Engineer | Component
 QUERY: Can the TechFeedView screen be built using components that already exist in the codebase?
 RESPONSE:
-Based on the provided codebase context, I cannot definitively answer whether the `TechFeedView` screen can be built using existing components because:
+Based on the provided codebase context, **yes, the TechFeedView screen can likely be built using components that already exist**, but with some considerations:
 
-## Missing Information:
+## Existing Components Available:
 
-1. **No Figma design context was actually provided** - The "FIGMA DESIGN CONTEXT" section is empty, so I cannot see what components or screens are defined in the design, including what `TechFeedView` should look like.
+1. **NewsHeader** - Can be reused for the header section
+2. **CategoryFilterBar** - Can be reused for category filtering
+3. **CategoryPill** - Can be reused for category labels
+4. **NewsCardFeatured** - Can display featured tech articles
+5. **NewsCardCompact** - Can display compact tech article cards
 
-2. **Limited codebase visibility** - The codebase context shows:
-   - `NewsHeader` component (✓ exists)
-   - `NewsFeedView` component (referenced but code not provided)
-   - `AppTheme` (referenced but code not provided)
-   - No `TechFeedView` component currently exists
+## Likely Implementation Approach:
 
-## What I Can Determine:
+The `TechFeedView` would follow a very similar pattern to `NewsFeedView`, potentially:
+- Using the same layout structure (ScrollView + VStack)
+- Reusing the same header and category filter components
+- Displaying tech-specific articles using the existing card components
+- Possibly filtering for "Technology" category articles only
 
-- If `TechFeedView` is structurally similar to `NewsFeedView`, it **might** be able to reuse:
-  - The `NewsHeader` component (possibly with modified text)
-  - Theme styling from `AppTheme`
-  - Any components used within `NewsFeedView` (if they're generic enough)
+## Potential Gaps:
 
-## To Answer Accurately, I Would Need:
+Without seeing the actual Figma design for `TechFeedView`, there might be:
+- **Different styling requirements** that would need the Figma design styles (like `cardPlusHeadline` or `categoryLabelPlus` which aren't used in current code)
+- **Different layout arrangements** specific to tech content
+- **Additional components** specific to tech articles
 
-1. The actual Figma design specifications for `TechFeedView`
-2. The implementation of `NewsFeedView` and any subcomponents it uses
-3. The complete list of reusable components in the codebase
+## Conclusion:
 
-**Short answer**: Cannot determine without seeing the Figma design context and the full component inventory.
+The foundational components exist and can be reused, making TechFeedView buildable with the current component library. However, the exact implementation would depend on the specific Figma design requirements for TechFeedView.
             
 ============================================================
 Q6 | Feasibility Assessment | Designer | Detail
@@ -195,67 +178,58 @@ RESPONSE:
 
 Based on the current codebase, here are the key technical constraints you should consider:
 
-## 1. **Existing Theme System Structure**
+## 1. **Established Theme System**
+- **Typography**: You must use existing text styles from `AppTheme.Typography`
+  - Available: `categoryLabel`, `cardHeadline`, `cardBody`
+  - For NewsCardPlus, you have `categoryLabelPlus` and `cardPlusHeadline` defined in Figma
+  - Ensure these new styles are added to the theme system before implementation
 
-The codebase uses a centralized `AppTheme` with predefined values:
-- **Typography**: `.categoryLabel`, `.cardHeadline`, `.cardBody`
-- **Colors**: `.accentPrimary`, `.accentSecondary`, `.textPrimary`, `.backgroundPrimary`, `.backgroundScreen`
-- **Spacing**: `.card`, `.cardContent`
+- **Colors**: Limited to the existing palette in `AppTheme.Colors`
+  - `accentPrimary`, `accentSecondary`
+  - `backgroundPrimary`, `backgroundScreen`
+  - `textPrimary`, `textSecondary`
 
-**Design Constraint**: Any new text styles, colors, or spacing values in NewsCardPlus should either use these existing tokens or you'll need to request new ones be added to the theme system.
+- **Spacing**: Must use `AppTheme.Spacing.card` and `AppTheme.Spacing.cardContent` for consistency
 
-## 2. **Image Resource System**
+## 2. **Corner Radius Standards**
+- Existing cards use **12pt corner radius** in code (despite Figma showing 5.0 for NewsCard)
+- Inner images use **8pt corner radius**
+- **Design-code mismatch exists** — you'll need to align with engineering on which is correct
 
-Current cards use typed image resources (`.featured`, `.compact`) rather than dynamic URLs or asset names.
+## 3. **Image System**
+- Images are passed as `ImageResource` type
+- Current cards expect a single image (`.featured` or `.compact`)
+- If NewsCardPlus needs multiple images or different aspect ratios, this will require additional assets
 
-**Design Constraint**: If NewsCardPlus needs different image dimensions or aspect ratios, a new ImageResource (e.g., `.plus`) will need to be defined. The images are rendered with `.resizable()` and `.scaledToFit()`, so aspect ratios matter.
+## 4. **Layout Patterns**
+- **Featured cards**: Vertical stack (image on top)
+- **Compact cards**: Horizontal stack with fixed height (100pt)
+- NewsCardPlus should follow similar predictable layout patterns for consistency
 
-## 3. **Card Layout Patterns**
+## 5. **Data Model Limitations**
+The `NewsArticle` model (referenced but not shown) currently supports:
+- `category` (String)
+- `headline` (String)
+- `description` (String)
+- `cardType` (enum)
 
-Two established patterns exist:
-- **Featured**: Vertical stack (image top, content below)
-- **Compact**: Horizontal layout with fixed height (100pt)
+**If NewsCardPlus requires additional data** (e.g., author, timestamp, tags, read time), the data model will need updates.
 
-**Design Constraint**: NewsCardPlus should follow a clear, consistent pattern. Mixing patterns or creating complex nested layouts may require additional development time.
+## 6. **Text Truncation**
+- Headlines are limited to **2 lines** (`.lineLimit(2)`)
+- Descriptions vary: **2 lines** (Featured) or **3 lines** (Compact)
+- Consider how NewsCardPlus will handle text overflow
 
-## 4. **Text Truncation Behavior**
+## 7. **Fixed Padding**
+- All cards use **16pt padding** consistently
+- Changing this for NewsCardPlus may break visual rhythm
 
-Current implementation uses `.lineLimit()`:
-- Headlines: 2 lines max
-- Descriptions: 2-3 lines max
-
-**Design Constraint**: If NewsCardPlus needs different truncation behavior or dynamic height based on content, this needs to be explicitly specified as it deviates from the current pattern.
-
-## 5. **Corner Radius Standards**
-
-- Card containers: 12pt radius
-- Internal images (compact): 8pt radius
-
-**Design Constraint**: Maintain these radius values for consistency unless there's a strong reason to deviate.
-
-## 6. **Data Model Limitation**
-
-The `NewsArticle` model includes:
-- `category`, `headline`, `description`, `cardType`
-
-**Design Constraint**: If NewsCardPlus requires additional data fields (author, timestamp, tags, read time, etc.), the data model will need to be extended, which impacts the entire data pipeline.
-
-## 7. **Padding Consistency**
-
-All cards use 16pt internal padding.
-
-**Design Constraint**: Maintain this unless NewsCardPlus has a specific reason for different spacing.
-
-## Recommendations for Your Design Handoff:
-
-✅ **Annotate** any new spacing values needed  
-✅ **Specify** which existing typography styles to use (or define new ones)  
-✅ **Define** the image aspect ratio and dimensions  
-✅ **Clarify** if new data fields are needed  
-✅ **Show** text truncation behavior for various content lengths  
-✅ **Use** the existing color tokens or clearly mark new color needs
-
-This will ensure smooth implementation without unnecessary back-and-forth with engineering.
+## ⚠️ **Recommendations**
+1. **Verify corner radius values** with the team (5.0 vs 12.0 discrepancy)
+2. **Confirm theme additions** for `categoryLabelPlus` and `cardPlusHeadline` are implemented
+3. **Check data requirements** early if NewsCardPlus needs fields beyond category/headline/description
+4. **Maintain spacing consistency** using existing `AppTheme.Spacing` values
+5. **Plan for responsiveness** — compact cards have fixed 100pt height; determine if NewsCardPlus should be fixed or flexible
             
 ============================================================
 Q7 | Feasibility Assessment | Engineer | Component+Detail
@@ -263,190 +237,186 @@ QUERY: How much of the NewsCardPlus design can be implemented by reusing NewsCar
 RESPONSE:
 # Analysis: NewsCardPlus Reusability from NewsCardCompact
 
-## High Reusability (80-90%)
+## What Can Be Reused (High Reusability)
 
-Based on the codebase, **NewsCardPlus can reuse most of NewsCardCompact's structure** with minimal modifications:
+Based on the Figma design context and existing codebase, **most of the core structure** can be reused:
 
-### ✅ What Can Be Reused Directly:
+### 1. **Layout Structure (~80% reusable)**
+- The `HStack(alignment: .top)` with image and content pattern
+- The `VStack` for stacking category, headline, and description
+- The spacing pattern using `AppTheme.Spacing`
+- The card padding and background styling
 
-1. **Overall Layout Pattern**
-   - `HStack` with image on left, content on right
-   - Same `alignment: .top` approach
-   - Same `spacing: AppTheme.Spacing.card`
+### 2. **Styling Components (100% reusable)**
+- Background color: `AppTheme.Colors.backgroundPrimary`
+- Corner radius pattern with `RoundedRectangle`
+- Image rendering and corner radius logic
+- Frame and alignment modifiers
 
-2. **Image Component**
-   - Same image rendering logic
-   - Same corner radius (8)
-   - `scaledToFit()` behavior
+### 3. **Content Elements (Partially reusable)**
+- Category label structure
+- Headline text structure  
+- Description text structure
+- Text modifiers like `lineLimit()` and `foregroundStyle()`
 
-3. **Content VStack Structure**
-   - Category label
-   - Headline
-   - Description
-   - Vertical spacing pattern
+## What Needs to Be Built/Modified
 
-4. **Typography & Styling**
-   - `AppTheme.Typography.categoryLabel`
-   - `AppTheme.Typography.cardHeadline`
-   - `AppTheme.Typography.cardBody`
-   - All color references
+### 1. **Typography Styles** ⚠️ **New**
+From Figma context, NewsCardPlus uses different text styles:
+- `categoryLabelPlus` (instead of `categoryLabel`)
+- `cardPlusHeadline` (instead of `cardHeadline`)
+- Keep `cardBody` as-is
 
-5. **Container Styling**
-   - 16pt padding
-   - `RoundedRectangle(cornerRadius: 12)`
-   - Background color application
+```swift
+// NEW typography references needed
+Text(category)
+    .font(AppTheme.Typography.categoryLabelPlus) // ← NEW
+Text(headline)
+    .font(AppTheme.Typography.cardPlusHeadline) // ← NEW
+```
 
-### ⚠️ What Needs Modification:
+### 2. **Visual Differentiation** 🔧 **Modifications**
+Likely differences based on the "Plus" variant naming:
+- Possibly larger font sizes
+- Different font weights (likely bolder/heavier)
+- Potentially different line limits
+- May have different spacing values
 
-1. **Fixed Height Constraint**
-   ```swift
-   .frame(height: 100)  // Remove or adjust this
-   ```
-   NewsCardPlus likely needs a taller frame or flexible height
+### 3. **Corner Radius** 📐 **Check Design**
+- NewsCardCompact uses `cornerRadius: 12` in code
+- Figma shows `Corner Radius: 5.0` for NewsCard component
+- Need to verify if NewsCardPlus has its own radius specification
 
-2. **Text Line Limits** (possibly)
-   ```swift
-   .lineLimit(2)  // headline - may need 3
-   .lineLimit(3)  // description - may need more
-   ```
+## Recommended Implementation Approach
 
-3. **Image Dimensions**
-   - Compact uses fixed frame ratio
-   - Plus version might need larger/different image sizing
+### **Option 1: Composition (Recommended)**
+Create a shared base component:
 
-### 🔨 Built From Scratch (Minimal):
-
-**Only if NewsCardPlus includes:**
-- Additional metadata (author, timestamp, tags)
-- Action buttons (bookmark, share)
-- Different interaction states
-- Badge overlays or status indicators
-
-## Recommended Implementation Strategy:
-
-**Option 1: Extract Shared Component**
 ```swift
 struct NewsCardBase: View {
     let category: String
     let headline: String
     let description: String
     let image: ImageResource
-    let cardHeight: CGFloat?
-    let headlineLines: Int
-    let descriptionLines: Int
+    let style: NewsCardStyle
     
-    // Shared implementation
+    enum NewsCardStyle {
+        case compact
+        case plus
+    }
+    
+    var body: some View {
+        HStack(alignment: .top, spacing: AppTheme.Spacing.card) {
+            Image(image)
+                .resizable()
+                .scaledToFit()
+                .cornerRadius(8)
+
+            VStack(alignment: .leading, spacing: AppTheme.Spacing.cardContent) {
+                Text(category)
+                    .font(style == .plus ? AppTheme.Typography.categoryLabelPlus : AppTheme.Typography.categoryLabel)
+                    .foregroundStyle(AppTheme.Colors.accentSecondary)
+                
+                Text(headline)
+                    .font(style == .plus ? AppTheme.Typography.cardPlusHeadline : AppTheme.Typography.cardHeadline)
+                    .foregroundStyle(AppTheme.Colors.textPrimary)
+                    .lineLimit(2)
+                
+                Text(description)
+                    .font(AppTheme.Typography.cardBody)
+                    .foregroundStyle(AppTheme.Colors.textPrimary)
+                    .lineLimit(3)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        // ... rest of styling
+    }
 }
 ```
 
-**Option 2: Make Compact Configurable**
+### **Option 2: Direct Extension (If minimal changes)**
+If NewsCardPlus only differs in typography:
+
 ```swift
-struct NewsCardCompact: View {
-    // ... existing properties
-    var height: CGFloat = 100
-    var headlineLineLimit: Int = 2
-    var descriptionLineLimit: Int = 3
+struct NewsCardPlus: View {
+    // Same properties as NewsCardCompact
     
-    // Then NewsCardPlus is just NewsCardCompact with different defaults
-}
-```
-
-## Conclusion:
-
-**~85% reusable** — NewsCardPlus is essentially a height/proportion variant of NewsCardCompact unless additional UI elements are required that aren't visible in the current context.
+    var body: some View {
+        // Copy NewsCardCompact structure
+        // Replace only the .font() modifiers
             
 ============================================================
 Q8 | Feasibility Assessment | Both | Component+Detail
 QUERY: What is the simplest path to implement the new designs without adding unnecessary complexity to the codebase?
 RESPONSE:
-Based on the provided context, here's the simplest implementation path:
+Based on the Figma design context and codebase, here's the simplest implementation path:
 
-## Recommended Approach
+## 1. **Create a centralized theme file** (`AppTheme.swift`)
 
-### 1. **Leverage Existing Structure**
-You already have a solid foundation with:
-- `NewsData` providing article content
-- `CategoryFilterBar` handling category filtering
-- Card type enumeration (`.featured`, `.compact`)
+Map Figma design tokens directly to Swift constants:
 
-### 2. **Minimal Changes Needed**
-
-**Step 1: Extend the NewsArticle Model**
 ```swift
-struct NewsArticle {
-    let category: String
-    let headline: String
-    let description: String
-    let cardType: CardType
-    // Add only if needed by Figma:
-    let imageURL: String? = nil
-    let timestamp: Date? = nil
-}
-```
-
-**Step 2: Create Reusable Card Components**
-```swift
-// FeaturedNewsCard.swift
-struct FeaturedNewsCard: View {
-    let article: NewsArticle
-    var body: some View {
-        // Match Figma's featured card design
-    }
-}
-
-// CompactNewsCard.swift
-struct CompactNewsCard: View {
-    let article: NewsArticle
-    var body: some View {
-        // Match Figma's compact card design
-    }
-}
-```
-
-**Step 3: Update ContentView**
-```swift
-struct ContentView: View {
-    @State private var selectedCategory = "All"
-    
-    var filteredArticles: [NewsArticle] {
-        selectedCategory == "All" 
-            ? NewsData.articles 
-            : NewsData.articles.filter { $0.category == selectedCategory }
+struct AppTheme {
+    struct Colors {
+        static let accentPrimary = Color("accentPrimary")
+        static let accentSecondary = Color("accentSecondary")
+        static let backgroundPrimary = Color("backgroundPrimary")
+        static let backgroundScreen = Color("backgroundScreen")
+        static let textPrimary = Color("textPrimary")
+        static let textSecondary = Color("textSecondary")
     }
     
-    var body: some View {
-        VStack {
-            CategoryFilterBar(...)
-            
-            ScrollView {
-                LazyVStack {
-                    ForEach(filteredArticles) { article in
-                        if article.cardType == .featured {
-                            FeaturedNewsCard(article: article)
-                        } else {
-                            CompactNewsCard(article: article)
-                        }
-                    }
-                }
-            }
-        }
+    struct Typography {
+        static let screenTitle = Font.custom("...", size: ...)
+        static let cardHeadline = Font.custom("...", size: ...)
+        static let cardBody = Font.custom("...", size: ...)
+        static let articleHeadline = Font.custom("...", size: ...)
+        static let articleBody = Font.custom("...", size: ...)
+        static let categoryLabel = Font.custom("...", size: ...)
+        static let cardPlusHeadline = Font.custom("...", size: ...)
+        static let categoryLabelPlus = Font.custom("...", size: ...)
+    }
+    
+    struct Spacing {
+        static let filterBar: CGFloat = 8.0
+        static let newsHeader: CGFloat = 8.0
+    }
+    
+    struct CornerRadius {
+        static let categoryPill: CGFloat = 5.0
+        static let newsCard: CGFloat = 5.0
     }
 }
 ```
 
-## Key Principles
+## 2. **Use Asset Catalog for colors**
 
-✅ **Don't over-engineer**: Use existing patterns  
-✅ **Component-based**: Match Figma components to Swift views 1:1  
-✅ **Reuse existing**: `CategoryFilterBar` and `AppTheme` already exist  
-✅ **Avoid premature abstraction**: Start simple, refactor if patterns emerge  
+Add color assets in `Assets.xcassets` matching Figma token names exactly (accentPrimary, textSecondary, etc.)
 
-**Avoid:**
-- Complex state management (unless Figma shows interactive states)
-- Custom layouts (use VStack/HStack/LazyVStack)
-- New design tokens (use existing `AppTheme`)
+## 3. **Update existing components incrementally**
 
-This approach maps directly from Figma components to SwiftUI views with minimal complexity.
+Replace hardcoded values with theme references:
+
+```swift
+// CategoryPill.swift
+.background(isSelected ? AppTheme.Colors.accentPrimary : AppTheme.Colors.backgroundPrimary)
+.cornerRadius(AppTheme.CornerRadius.categoryPill)
+.foregroundColor(AppTheme.Colors.textPrimary)
+.font(AppTheme.Typography.categoryLabel)
+```
+
+## 4. **Build missing components as needed**
+
+Only create `NewsHeader`, `NewsCard`, etc. when implementing their respective screens. Use the same pattern.
+
+## Key Principles:
+- ✅ **1:1 mapping** between Figma tokens and code constants
+- ✅ **No abstraction layers** beyond AppTheme
+- ✅ **Reuse existing structure** (CategoryFilterBar already follows good patterns)
+- ✅ **Incremental adoption** - update components as you touch them
+- ❌ Avoid custom view modifiers, protocols, or configuration objects unless truly needed
+
+This keeps the codebase simple, maintainable, and directly traceable to design specs.
             
 ============================================================
 Q9 | Design-to-Code Alignment | Engineer | Component
@@ -454,194 +424,196 @@ QUERY: Does the CategoryFilterBar component in the codebase match its structure 
 RESPONSE:
 # Analysis: CategoryFilterBar Component Match
 
-## ❌ **Cannot Determine Match**
+## Answer: **Partially Matches** ⚠️
 
-### Issue: Missing Figma Design Context
+The `CategoryFilterBar` component in the codebase **mostly aligns** with the Figma design, but there are some discrepancies:
 
-The Figma design context provided is **empty** - there is no actual component structure, design specifications, or visual information included in the context section. The sections labeled "COMPONENTS:" and "FILE STRUCTURE (Pages and Screens):" contain no data.
+## ✅ What Matches:
 
-### What Would Be Needed to Answer This Question:
+1. **Gap/Spacing**: The codebase uses `AppTheme.Spacing.filterBar` which should correspond to the **8.0 gap** specified in Figma
+2. **Structure**: Uses a horizontal ScrollView with HStack containing CategoryPill components
+3. **Component Composition**: Correctly uses the CategoryPill child component
 
-To properly assess whether the `CategoryFilterBar` implementation matches the Figma design, I would need:
+## ⚠️ Discrepancies:
 
-1. **Component specifications** from Figma including:
-   - Layout structure (horizontal scroll, spacing values)
-   - Typography specifications for category labels
-   - Color values for selected/unselected states
-   - Padding values (horizontal/vertical)
-   - Border radius for the capsule shape
-   - Spacing between pills
+1. **Corner Radius**: 
+   - **Figma**: CategoryFilterBar has `Corner Radius: 5.0`
+   - **Codebase**: No corner radius applied to the CategoryFilterBar container itself. The corner radius is only applied at the CategoryPill level (using `Capsule()`)
 
-2. **Design tokens** or style guide showing:
-   - Whether `AppTheme.Spacing.filterBar` matches design specs
-   - Whether `AppTheme.Typography.categoryLabel` is correct
-   - Color mappings for the various states
+2. **Horizontal Padding**:
+   - The codebase applies `.padding(.horizontal, 5)` which isn't explicitly mentioned in the Figma specs
 
-### Current Codebase Implementation:
+## Recommendations:
 
-The Swift code shows:
-- Horizontal `ScrollView` with pills
-- Category pills with capsule backgrounds
-- Selected/unselected state styling
-- Spacing controlled by `AppTheme.Spacing.filterBar`
-- 16px horizontal, 8px vertical padding on pills
+To fully match the Figma design, consider:
+- Verifying if the CategoryFilterBar container itself needs a 5.0 corner radius and background
+- Confirming that `AppTheme.Spacing.filterBar` equals `8.0`
+- Checking if the horizontal padding of `5` matches the design intent
 
-**Without the Figma design specifications, I cannot verify if these values and structures match the intended design.**
+The functional behavior appears correct, but visual styling alignment should be verified against the actual Figma file.
             
 ============================================================
 Q10 | Design-to-Code Alignment | Designer | Detail
 QUERY: Do the typography and color styles I defined in Figma match what has already been implemented in the codebase?
 RESPONSE:
-# Typography and Color Styles Analysis
+Based on comparing the Figma design context with the codebase, there is **partial alignment** with some **missing implementations**:
 
-Based on comparing the Figma design context with the implemented codebase, I cannot provide a complete answer because **the Figma design context you provided is empty**.
+## ✅ Matching Styles
 
-## What I Can See in the Codebase
+### Colors (Fully Aligned)
+All 6 Figma color styles are implemented in `AppTheme.Colors`:
+- `accentPrimary` ✓
+- `accentSecondary` ✓
+- `backgroundPrimary` ✓
+- `backgroundScreen` ✓
+- `textPrimary` ✓
+- `textSecondary` ✓
 
-The codebase has defined:
+### Typography (Partially Aligned)
+These 6 Figma text styles are implemented in `AppTheme.Typography`:
+- `text/screenTitle` ✓
+- `text/cardHeadline` ✓
+- `text/cardBody` ✓
+- `text/articleHeadline` ✓
+- `text/articleBody` ✓
+- `categoryLabel` ✓
 
-### **Colors:**
-- `accentPrimary`
-- `accentSecondary`
-- `backgroundPrimary`
-- `backgroundScreen`
-- `textPrimary`
-- `textSecondary`
+## ❌ Missing Implementations
 
-### **Typography:**
-- `screenTitle` - 18pt Bold
-- `cardHeadline` - 16pt Semibold
-- `cardBody` - 13pt Regular
-- `categoryLabel` - 12pt Medium
-- `articleHeadline` - 32pt Bold
-- `articleBody` - 20pt Regular
-
-## What I Need from Figma
-
-To verify if they match, I would need to see:
-
-1. **Color tokens/variables** defined in your Figma design system
-2. **Text styles** defined in Figma (font sizes, weights, line heights)
-3. **Component specifications** showing which colors and typography are used where
+### Typography (2 styles not implemented)
+- **`cardPlusHeadline`** - Not found in `AppTheme.Typography`
+- **`categoryLabelPlus`** - Not found in `AppTheme.Typography`
 
 ## Recommendation
 
-Please share:
-- Screenshots or exports of your Figma color styles panel
-- Screenshots or exports of your Figma text styles panel
-- Or the actual Figma design file structure showing defined styles
+To achieve full alignment, add these missing styles to `StyleGuide.swift`:
 
-Once you provide the Figma design details, I can give you a precise comparison and identify any mismatches between design and code.
+```swift
+struct Typography {
+    // ... existing styles ...
+    
+    // Add these:
+    static let cardPlusHeadline = Font.system(size: ??, weight: .??)
+    static let categoryLabelPlus = Font.system(size: ??, weight: .??)
+}
+```
+
+You'll need to check your Figma design to determine the specific font sizes and weights for these two "Plus" variants.
             
 ============================================================
 Q11 | Design-to-Code Alignment | Both | Edge Case
 QUERY: The CategoryPill component has Selected and Unselected states in Figma. Are there any edge cases such as long text or missing state handling that exist in the design but aren't accounted for in the codebase?
 RESPONSE:
-Based on my analysis of the Figma design context and the codebase, here are the edge cases that may not be adequately handled:
+# Analysis of CategoryPill Edge Cases
 
-## Edge Cases Not Fully Accounted For:
+Based on the Figma design context and codebase, here are the edge cases that exist in the design but aren't fully accounted for in the codebase:
 
-### 1. **Long Text Handling**
-The current `CategoryPill` implementation does **not** have any text truncation or line limits:
+## 1. **Long Text Handling** ⚠️
+**Issue:** The code doesn't handle text truncation or wrapping for long category names.
+
 ```swift
 Text(title)
     .font(AppTheme.Typography.categoryLabel)
-    // No .lineLimit() or .truncationMode() specified
+    // Missing: .lineLimit(1) or .truncationMode(.tail)
 ```
 
-**Potential issues:**
-- Very long category names could break the pill's visual design
-- Text might wrap to multiple lines, distorting the capsule shape
-- Horizontal scrolling in `CategoryFilterBar` might not work as expected with variable-width pills
+**Problems:**
+- Extremely long category names could cause layout issues in the horizontal scroll
+- Pills could become disproportionately wide
+- No defined behavior for text overflow
 
-**Recommendation:** Add `.lineLimit(1)` and `.truncationMode(.tail)` to prevent wrapping.
-
-### 2. **Minimum Touch Target Size**
-The padding is fixed at:
+**Recommendation:**
 ```swift
-.padding(.horizontal, 16)
-.padding(.vertical, 8)
+Text(title)
+    .font(AppTheme.Typography.categoryLabel)
+    .lineLimit(1)
+    .truncationMode(.tail)
 ```
 
-For very short category names (e.g., "AI"), the touch target might be smaller than the recommended 44x44 points for iOS accessibility guidelines.
+## 2. **Minimum Touch Target Size** ⚠️
+**Issue:** No minimum height/width guarantees for accessibility.
 
-### 3. **State Transitions/Animations**
-There's no animation for the state change between selected/unselected:
-- Color changes happen instantly
-- No smooth transition for better UX
+The padding is fixed at 16pt horizontal and 8pt vertical, but for very short text (like "AI" or "VR"), the touch target might be too small for comfortable interaction, especially for accessibility standards (44pt minimum recommended by Apple).
 
-**Recommendation:** Add animation:
+## 3. **State Management Edge Cases** ⚠️
+**Issue:** No handling for:
+- **Disabled state** - What if a category has no articles?
+- **Loading state** - During data fetch
+- **Error state** - If category data fails to load
+- **Focus state** - For keyboard/VoiceOver navigation
+
+## 4. **Typography Fallback**
+**Issue:** The design references `categoryLabel` and `categoryLabelPlus` in the design system, but the code only uses `categoryLabel`. There's no handling for:
+- What `categoryLabelPlus` is intended for
+- Whether selected vs unselected states should use different typography styles
+
+## 5. **Corner Radius Mismatch**
+**Issue:** Figma specifies `Corner Radius: 5.0` for CategoryPill, but the code uses `Capsule()` which creates fully rounded ends regardless of content size.
+
 ```swift
+.background(Capsule()) // Always fully rounded
+// vs
+.background(RoundedRectangle(cornerRadius: 5.0)) // Fixed 5pt radius
+```
+
+## 6. **Animation/Transition Handling** ⚠️
+**Issue:** No animation when toggling between selected/unselected states. The design likely includes smooth transitions, but the code has instant state changes.
+
+**Recommendation:**
+```swift
+.background(
+    Capsule()
+        .fill(isSelected ? AppTheme.Colors.accentPrimary : AppTheme.Colors.backgroundPrimary)
+)
 .animation(.easeInOut(duration: 0.2), value: isSelected)
 ```
 
-### 4. **Disabled State**
-The Figma design may include a disabled state, but the codebase only handles `isSelected` (Boolean), with no provision for:
-- Disabled/inactive pills
-- Loading states
-- Error states
+## Summary of Missing Edge Cases:
+1. ✅ **Long text truncation**
+2. ✅ **Minimum touch target sizing**
+3. ✅ **Additional states** (disabled, loading, error, focus)
+4. ✅ **Typography variant usage** (categoryLabelPlus)
+5. ✅ **Corner radius specification** vs Capsule
+6. ✅ **State transition animations**
 
-### 5. **Dynamic Type Support**
-No explicit handling for users who increase font sizes via accessibility settings, which could cause layout issues with the fixed padding.
-
-These edge cases should be addressed to ensure the implementation matches design intent across all use cases.
+These gaps should be addressed to ensure the implementation fully matches the design intent and handles real-world usage scenarios.
             
 ============================================================
 Q12 | Design-to-Code Alignment | Both | Technical Constraint
 QUERY: Does the current codebase architecture support the layout requirements of the TechFeedView screen as designed in Figma?
 RESPONSE:
-# Analysis: Codebase Architecture vs. TechFeedView Requirements
+Based on the Figma design context and codebase analysis, **yes, the current codebase architecture does support the layout requirements of the TechFeedView screen**, but with some observations:
 
-## ⚠️ **Cannot Fully Assess - Missing Figma Design Context**
+## Supporting Evidence:
 
-The provided Figma design context is **incomplete**. The section shows:
+1. **Reusable Component Architecture**: The codebase demonstrates a well-structured component system with:
+   - `NewsHeader` (Gap: 8.0)
+   - `CategoryFilterBar` (Gap: 8.0)
+   - `CategoryPill` (Corner Radius: 5.0)
+   - `NewsCard` (Corner Radius: 5.0)
+   - Card variants (`NewsCardFeatured`, `NewsCardCompact`)
 
-```
-FIGMA DESIGN CONTEXT
+2. **Consistent Layout Patterns**: `NewsFeedView` already implements a pattern that TechFeedView would likely follow:
+   - ScrollView container
+   - VStack with consistent spacing
+   - Header → Category Filter → Content Cards structure
+   - Navigation support with NavigationStack
 
-COMPONENTS:
+3. **Theme System**: `AppTheme` provides centralized:
+   - Colors (matching Figma's color tokens)
+   - Typography (matching Figma's text styles)
+   - Spacing values (e.g., `Spacing.newsFeed`, `Spacing.articleContent`)
 
-FILE STRUCTURE (Pages and Screens):
-```
+4. **Design System Alignment**: The code implements Figma's design systems:
+   - Typography styles map to `AppTheme.Typography`
+   - Color tokens map to `AppTheme.Colors`
+   - Corner radius and gap values are implemented
 
-But contains **no actual design specifications** for the TechFeedView screen (or any screen).
+## What Would Be Needed for TechFeedView:
 
-## What I Can Infer from the Codebase
+1. **Create new view file**: `TechFeedView.swift` following the same structure as `NewsFeedView`
+2. **Filter data**: Filter articles by "Technology" category or use a tech-specific data source
+3. **Potentially customize**: May need tech-specific styling variations using the existing theme system
 
-Based on the existing Swift files, the current architecture includes:
-
-### ✅ **Available Components:**
-1. **NewsCardCompact** - Horizontal card layout with image, category, headline, description
-2. **ArticleDetailView** - Full article display with image, category pill, headline, body
-3. **CategoryPill** - Category label component (referenced but not shown)
-4. **AppTheme** - Centralized design tokens (colors, typography, spacing)
-
-### 🏗️ **Current Architecture Patterns:**
-- Component-based structure (reusable views)
-- Theme system with semantic tokens
-- Navigation support (NavigationStack in previews)
-- ScrollView for content feeds
-
-## What's Needed to Answer Your Question
-
-To properly assess if the architecture supports TechFeedView, I need:
-
-1. **Screen layout specification** - Is TechFeedView a vertical list? Grid? Mixed layout?
-2. **Component requirements** - Does it use NewsCardCompact, a different card style, or featured cards?
-3. **Navigation patterns** - Does it link to ArticleDetailView?
-4. **Filtering/Category UI** - Are there category filters/tabs at the top?
-5. **Feed structure** - Single feed or multiple sections?
-
-## Preliminary Assessment
-
-**Likely YES, with possible gaps:**
-
-The architecture appears **well-structured** for a feed view with:
-- ✅ Reusable card component
-- ✅ Detail view for navigation
-- ✅ Theme consistency
-- ❓ Missing: NewsFeedView implementation (referenced in ContentView but not provided)
-- ❓ Unknown: If TechFeedView needs different card variants or layouts
-
-**Please provide the complete Figma design context to get a definitive answer.**
+The architecture is **component-based, themeable, and follows the same patterns** established in NewsFeedView, making TechFeedView straightforward to implement.
             

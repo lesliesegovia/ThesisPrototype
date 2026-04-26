@@ -30,7 +30,11 @@ def ingest_swift_files():
             ids=[filename],
             embeddings=[embedding],
             documents=[content],
-            metadatas=[{"filename": filename, "path": str(file_path)}]
+            metadatas=[{
+                "filename": filename, 
+                "path": str(file_path),
+                "type": "screen" if "View" in filename else "component"
+            }]
         )
         print(f"Ingested: {filename}")
     
