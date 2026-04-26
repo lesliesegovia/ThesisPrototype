@@ -20,16 +20,16 @@ struct NewsCardCompact: View {
                 // category label
                 Text(category)
                     .font(AppTheme.Typography.categoryLabel)
-                    .foregroundStyle(AppTheme.Colors.accentPrimary)
+                    .foregroundStyle(AppTheme.Colors.accentSecondary)
                 // headline
                 Text(headline)
                     .font(AppTheme.Typography.cardHeadline)
-                    .foregroundStyle(AppTheme.Colors.textSecondary)
+                    .foregroundStyle(AppTheme.Colors.textPrimary)
                     .lineLimit(2)
                 // description
                 Text(description)
                     .font(AppTheme.Typography.cardBody)
-                    .foregroundStyle(AppTheme.Colors.textSecondary)
+                    .foregroundStyle(AppTheme.Colors.textPrimary)
                     .lineLimit(3)
             }
             .frame(maxWidth: .infinity, alignment: .leading)

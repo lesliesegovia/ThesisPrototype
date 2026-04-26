@@ -27,7 +27,7 @@ struct NewsCardFeatured: View {
                 // description
                 Text(description)
                     .font(AppTheme.Typography.cardBody)
-                    .foregroundStyle(AppTheme.Colors.textSecondary)
+                    .foregroundStyle(AppTheme.Colors.textPrimary)
                     .lineLimit(2)
             }
             .padding(16)

@@ -10,7 +10,7 @@ struct CategoryPill: View {
         Text(title)
             .font(AppTheme.Typography.categoryLabel)
             .foregroundStyle(
-                isSelected ? AppTheme.Colors.textOnAccent : AppTheme.Colors.accentSecondary
+                isSelected ? AppTheme.Colors.textPrimary : AppTheme.Colors.accentSecondary
             )
             .padding(.horizontal, 16)
             .padding(.vertical, 8)
