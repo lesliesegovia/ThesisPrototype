@@ -45,7 +45,7 @@ def get_figma_context_for_query():
     components = get_figma_components()
     structure = get_figma_file_structure()
     
-    context = "=== FIGMA DESIGN CONTEXT ===\n\n"
+    context = "FIGMA DESIGN CONTEXT\n\n"
     
     context += "COMPONENTS:\n"
     for comp in components:
