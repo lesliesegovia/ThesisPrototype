@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from sentence_transformers import SentenceTransformer
 import chromadb
 import anthropic
+from figma_context import get_figma_context_for_query
 
 load_dotenv()
 
@@ -21,18 +22,24 @@ def query_codebase(query: str, n_results: int = 3):
     return results["documents"][0], results["metadatas"][0]
 
 def run_query(query: str):
+    # Get codebase context via RAG
     docs, metadatas = query_codebase(query)
-    
-    context = ""
+    code_context = ""
     for doc, meta in zip(docs, metadatas):
-        context += f"\n\n--- {meta['filename']} ---\n{doc}"
+        code_context += f"\n\n--- {meta['filename']} ---\n{doc}"
+    
+    # Get Figma design context via REST API
+    figma_context = get_figma_context_for_query()
     
     prompt = f"""You are an AI assistant helping bridge design and engineering workflows.
 
-Here is relevant code context from the iOS codebase:
-{context}
+=== FIGMA DESIGN CONTEXT ===
+{figma_context}
 
-Based on this codebase context, answer the following question:
+=== CODEBASE CONTEXT (relevant Swift files) ===
+{code_context}
+
+Based on both the Figma design context and the codebase context above, answer the following question:
 {query}"""
     
     response = claude.messages.create(
