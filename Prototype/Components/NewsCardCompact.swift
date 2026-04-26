@@ -9,7 +9,7 @@ struct NewsCardCompact: View {
     let image: ImageResource
     
     var body: some View {
-        HStack(alignment: .top, spacing: 12) {
+        HStack(alignment: .top, spacing: AppTheme.Spacing.card) {
             // card image
             Image(image)
                 .resizable()
@@ -17,7 +17,7 @@ struct NewsCardCompact: View {
                 .cornerRadius(8)
 
             // card content
-            VStack(alignment: .leading, spacing: 8) {
+            VStack(alignment: .leading, spacing: AppTheme.Spacing.cardContent) {
                 // category label
                 Text(category)
                     .font(AppTheme.Typography.categoryLabel)

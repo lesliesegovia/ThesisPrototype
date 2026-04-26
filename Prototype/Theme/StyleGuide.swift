@@ -30,4 +30,15 @@ struct AppTheme {
         static let articleHeadline = Font.system(size: 32, weight: .bold)
         static let articleBody = Font.system(size: 20, weight: .regular)
     }
+    
+    struct Spacing {
+        static let header: CGFloat = 8
+        static let newsFeed: CGFloat = 12
+        static let card: CGFloat = 12
+        static let cardContent: CGFloat = 8
+        static let filterBar: CGFloat = 8
+        static let articleFeed: CGFloat = 16
+        static let articleContent: CGFloat = 12
+        
+    }
 }

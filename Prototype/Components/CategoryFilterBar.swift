@@ -8,7 +8,7 @@ struct CategoryFilterBar: View {
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 8) {
+            HStack(spacing: AppTheme.Spacing.filterBar) {
                 ForEach(categories, id: \.self) { category in
                     CategoryPill(
                         title: category,

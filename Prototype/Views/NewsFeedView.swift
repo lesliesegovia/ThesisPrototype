@@ -21,13 +21,13 @@ struct NewsFeedView: View {
                     CategoryFilterBar(selectedCategory: $selectedCategory, categories: categories)
                     
                     // CARDS
-                    VStack(spacing: 12) {
+                    VStack(spacing: AppTheme.Spacing.newsFeed) {
                         ForEach(articles, id: \.headline) { article in
                             NavigationLink(destination: ArticleDetailView(
                                 category: article.category,
                                 headline: article.headline,
-                                articleText: article.description,
-                                imageName: article.imageName
+                                details: article.description,
+                                image: article.imageName
                             )) {
                                 switch article.cardType {
                                 case .featured:

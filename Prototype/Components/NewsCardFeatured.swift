@@ -15,7 +15,7 @@ struct NewsCardFeatured: View {
                 .scaledToFit()
             
             // Card content
-            VStack(alignment: .leading, spacing: 8) {
+            VStack(alignment: .leading, spacing: AppTheme.Spacing.card) {
                 // category label
                 Text(category)
                     .font(AppTheme.Typography.categoryLabel)

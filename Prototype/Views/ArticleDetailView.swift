@@ -5,21 +5,21 @@ import SwiftUI
 struct ArticleDetailView: View {
     let category: String
     let headline: String
-    let articleText: String
-    let imageName: ImageResource
+    let details: String
+    let image: ImageResource
     
     
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 16) {
+            VStack(alignment: .leading, spacing: AppTheme.Spacing.articleFeed) {
                 
                 // Article image
-                Image(imageName)
+                Image(image)
                     .resizable()
                     .scaledToFit()
 
                 
-                VStack(alignment: .leading, spacing: 12) {
+                VStack(alignment: .leading, spacing: AppTheme.Spacing.articleContent) {
                     
                     // Category Label
                     CategoryPill(title: category, isSelected: true)
@@ -36,7 +36,7 @@ struct ArticleDetailView: View {
                         .frame(height: 3)
                     
                     // article body
-                    Text(articleText)
+                    Text(details)
                         .font(AppTheme.Typography.articleBody)
                         .foregroundStyle(AppTheme.Colors.textSecondary)
                         .lineSpacing(6)
@@ -53,8 +53,8 @@ struct ArticleDetailView: View {
         ArticleDetailView(
             category: "Technology",
             headline: "SwiftUI gets major performance improvements in latest release",
-            articleText: "Developers report faster build times and smoother animations across all supported platforms.",
-            imageName: .featured
+            details: "Developers report faster build times and smoother animations across all supported platforms.",
+            image: .featured
         )
     }
 }

@@ -4,7 +4,7 @@ import SwiftUI
 
 struct NewsHeader: View {
     var body: some View {
-        HStack(spacing: 8) {
+        HStack(spacing: AppTheme.Spacing.header) {
             Image(.logo)
                 .resizable()
                 .scaledToFit()
