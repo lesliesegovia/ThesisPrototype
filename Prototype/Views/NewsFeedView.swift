@@ -18,20 +18,7 @@ struct NewsFeedView: View {
                     NewsHeader()
                     
                     // Category pills
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 8){
-                            ForEach(categories, id: \.self) { category in
-                                CategoryPill(
-                                    title: category,
-                                    isSelected: selectedCategory == category,
-                                )
-                                .onTapGesture {
-                                    selectedCategory = category
-                                }
-                            }
-                        }
-                        .padding(.horizontal, 5)
-                    }
+                    CategoryFilterBar(selectedCategory: $selectedCategory, categories: categories)
                     
                     // CARDS
                     VStack(spacing: 12) {

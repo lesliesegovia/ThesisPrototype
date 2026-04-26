@@ -16,7 +16,6 @@ struct AppTheme {
         // Text
         static let textPrimary = Color("textPrimary")
         static let textSecondary = Color("textSecondary")
-        static let textOnAccent = Color("textOnAccent")
     }
     
     struct Typography {
